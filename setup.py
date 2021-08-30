@@ -52,7 +52,7 @@ if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
 
 extras_require = {
     'hardware': requirements_hw,
-    'gui': ['pyqt5'],
+    'gui': ['pyqt5', 'pyqtwebengine'],
     'crypto': ['cryptography>=2.6'],
     'tests': ['pycryptodomex>=3.7', 'cryptography>=2.6', 'pyaes>=0.1a1'],
 }

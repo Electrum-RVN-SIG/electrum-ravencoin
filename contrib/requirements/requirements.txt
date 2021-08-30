@@ -15,6 +15,7 @@ x16r_hash
 x16rv2_hash
 kawpow
 matplotlib
+pyqtwebengine
 
 # Note that we also need the dnspython[DNSSEC] extra which pulls in cryptography,
 # but as that is not pure-python it cannot be listed in this file!

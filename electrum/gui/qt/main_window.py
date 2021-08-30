@@ -47,7 +47,7 @@ from PyQt5.QtWidgets import (QMessageBox, QComboBox, QSystemTrayIcon, QTabWidget
                              QHBoxLayout, QPushButton, QScrollArea, QTextEdit,
                              QShortcut, QMainWindow, QCompleter, QInputDialog,
                              QWidget, QSizePolicy, QStatusBar, QToolTip, QDialog,
-                             QMenu, QAction, QStackedWidget, QToolButton, )
+                             QMenu, QAction, QStackedWidget, QToolButton,)
 
 import electrum
 from electrum.gui import messages
@@ -105,7 +105,7 @@ from .channels_list import ChannelsList
 from .confirm_tx_dialog import ConfirmTxDialog
 from .transaction_dialog import PreviewTxDialog
 from .rbf_dialog import BumpFeeDialog, DSCancelDialog
-from ...assets import is_main_asset_name_good, is_sub_asset_name_good, is_unique_asset_name_good
+from .webscraping import SitePreview
 from .qrreader import scan_qrcode
 
 if TYPE_CHECKING:
@@ -1641,6 +1641,28 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         tabwidget.addTab(l, "My Assets")
         tabwidget.addTab(create_w, "Create Asset")
         tabwidget.addTab(reissue_w, "Reissue Asset")
+
+        sp = SitePreview()
+        sp.load_site('https://google.com')
+
+        hbox = QHBoxLayout()
+
+        line = QLineEdit()
+        hbox.addWidget(line)
+
+        update = QPushButton('UPDATE')
+        update.clicked.connect(lambda: sp.load_site(line.text()))
+        hbox.addWidget(update)
+
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox)
+        vbox.addWidget(sp)
+
+        widg = QWidget()
+        widg.setLayout(vbox)
+
+        tabwidget.addTab(widg, "TEST")
+
         layout.addWidget(tabwidget, 0, 0)
         return w
 

@@ -39,6 +39,7 @@ is a TL;DR::
     sudo apt-get install python3-pip
     sudo apt-get install python3-cryptography
     sudo apt-get install python3-pyqt5
+    sudo apt-get install python3-pyqt5.qtwebengine
     sudo apt-get install libsecp256k1-0
     sudo apt-get install cmake
     sudo pip3 install virtualenv
