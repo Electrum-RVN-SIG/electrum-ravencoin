@@ -65,6 +65,8 @@ def cidv0_to_base32_cidv1(b58_ipfs_hash: str):
     # 1: version
     # 0x70 is dag-pb multicodec; what is used for IPFS lookups
 
+    # note that the IPFS varint is different than the bitcoin varint
+
     result = 'b' + b32encode(bytes([1, 0x70]) + multibase).decode('ascii').lower().replace('=', '')
     assert result.isalnum(), result
     return result
@@ -242,7 +244,13 @@ class IPFSDB(JsonDB, EventListener):
         async def lookup_data(ipfs_url: str):
             await asyncio.sleep(0.25)
             self.logger.info(f'attempting to download data from {ipfs_url}')
-            await Network.async_send_http_on_proxy('get', ipfs_url, on_finish=on_finish, timeout=network.config.MAX_IPFS_DOWNLOAD_WAIT)
+            await Network.async_send_http_on_proxy('get', 
+                                                   ipfs_url, 
+                                                   on_finish=on_finish, 
+                                                   timeout=network.config.MAX_IPFS_DOWNLOAD_WAIT,
+                                                   headers={
+                                                       'Accept': 'application/vnd.ipld.car'
+                                                   })
 
         try:
             self.logger.info(f'downloading ipfs data for {ipfs_hash}')

@@ -15,3 +15,5 @@ dnspython>=2.0
 x16r_hash @ git+https://github.com/brian112358/x16r_hash@d79211ee8b5d86a9709caefded79f318a1d9f3a8
 x16rv2_hash @ git+https://github.com/RavenCommunity/x16rv2_hash@f8a9ef9a185b4c900adea4628be9b08aaab343ba
 kawpow==0.9.4.4
+dag_cbor==0.3.2
+multiformats==0.2.1
