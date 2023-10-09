@@ -86,26 +86,6 @@ class BlockIndex:
         self.offset = offset
         self.block_offset = block_offset
 
-def _resolve(encoded_cid: str, name: str, entry_path: str, starting_depth: int, block_from_cid: Callable[[str], bytes]) -> Tuple[Mapping, Optional[Mapping]]:
-    cid = CID.decode(encoded_cid)
-    block = block_from_cid[encoded_cid]
-    if cid.codec == multicodec.get('dag-pb').code:
-        pass
-    elif cid.codec == multicodec.get('raw').code:
-        pass
-    elif cid.codec == multicodec.get('dag-cbor').code:
-        pass
-    elif cid.codec == multicodec.get('identity').code:
-        pass
-    else:
-        raise Exception(f'no resolver for code {cid.codec}')
-
-def _walk_path(encoded_cid: str, block_from_cid: Callable[[str], bytes]):
-    pass
-
-def _entries_from_blocks(encoded_cid: str, block_from_cid: Callable[[str], bytes]):
-    pass
-
 async def write_raw_from_car(stream: AsyncByteStreamHolder, ipfs_hash: str):
     header_length = await stream.read_var_int()
     assert header_length > 0
