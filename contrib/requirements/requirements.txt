@@ -17,3 +17,4 @@ x16rv2_hash @ git+https://github.com/RavenCommunity/x16rv2_hash@f8a9ef9a185b4c90
 kawpow==0.9.4.4
 dag_cbor==0.3.2
 multiformats==0.2.1
+py_unix_fs_exporter @ git+https://github.com/kralverde/py-unix-fs-exporter@1dd0c613f9cb542bf3d0eca0811d693d9f70d753

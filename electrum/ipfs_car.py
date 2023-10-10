@@ -2,6 +2,7 @@ import asyncio
 
 from typing import Sequence, Callable, Tuple, Optional, Mapping
 
+from py_unix_fs_exporter.exporter import recursive_exporter
 from multiformats import CID, multicodec
 import dag_cbor
 
@@ -120,6 +121,7 @@ async def write_raw_from_car(stream: AsyncByteStreamHolder, ipfs_hash: str):
         stream._limit = header['data_size'] + header['data_offset']
 
     block_indices: Sequence[BlockIndex] = []
+    block_mapping = dict[str, bytes]()
     while stream.can_read_more():
         offset = stream._pos
         length = await stream.read_var_int()
@@ -145,6 +147,7 @@ async def write_raw_from_car(stream: AsyncByteStreamHolder, ipfs_hash: str):
         )
         hashing_function, digest_size = cid.hashfun.implementation
         raw = await stream.read_bytes(block_length)
+        block_mapping[cid.encode()] = raw
         computed_hash = hashing_function(raw)
         assert computed_hash == cid.raw_digest
 
@@ -156,4 +159,12 @@ async def write_raw_from_car(stream: AsyncByteStreamHolder, ipfs_hash: str):
         cid_order.append(cid_str)
 
     assert cid_order[0] == ipfs_hash
-
+    entries = recursive_exporter(ipfs_hash, block_mapping)
+    with open('./test.dat', 'wb') as f:
+        for entry in entries:
+            if isinstance(entry, bytes):
+                f.write(entry)
+                continue
+            print(len(entry.content))
+            for content in entry.content:
+                f.write(content)
