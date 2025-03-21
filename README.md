@@ -1,3 +1,5 @@
+This software will no longer be updated by me. If you'd like to maintain this software, please reach out.
+
 _(If you've come here looking to simply run Electrum Ravencoin, you may download a prebuilt binary for
 [windows](https://github.com/Electrum-RVN-SIG/electrum-ravencoin/releases/download/v1.2.1/electrum-ravencoin-v1.2.1-setup.exe),
 [linux](https://github.com/Electrum-RVN-SIG/electrum-ravencoin/releases/download/v1.2.1/electrum-ravencoin-v1.2.1-x86_64.AppImage), and
